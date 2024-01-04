@@ -148,21 +148,21 @@ resource "aws_nat_gateway" "gw" {
 
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
-  depends_on = [aws_internet_gateway.main]
+  #depends_on = [aws_internet_gateway.main]
 }
 
 # associating private route table to Nat gateway 
-resource "aws_route" "nat" {
-  route_table_id            = "aws_route_table.private_route_table.id"
+resource "aws_route" "private" {
+  route_table_id            = aws_route_table.private_route_table.id
   destination_cidr_block    = "0.0.0.0/0"
-  nat_nat_gateway_id        = "aws_nat_gateway.gw"
+  nat_gateway_id            = aws_nat_gateway.gw.id
   #depends_on                = [aws_route_table.private]
 }
 
 # associating database route table to Nat gateway 
-resource "aws_route" "nat" {
-  route_table_id            = "aws_route_table.database_route_table.id"
+resource "aws_route" "database" {
+  route_table_id            = aws_route_table.database_route_table.id
   destination_cidr_block    = "0.0.0.0/0"
-  nat_nat_gateway_id        = "aws_nat_gateway.gw"
+  nat_gateway_id           = aws_nat_gateway.gw.id
   #depends_on                = [aws_route_table.database_route_table]
 }
