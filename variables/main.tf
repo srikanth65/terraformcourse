@@ -10,6 +10,17 @@ resource "aws_vpc" "main" {
 
   tags = var.tags
 }
+# create with subnets
+resource "aws_subnet" "public" {
+  for_each = var.public_subnets
+  vpc_id = aws_vpc.main.id
+  cidr_block = each.value.cidr_block
+  availability_zone = each.value.az
+  tags = {
+    Name = "each.value.Name"
+  }
+
+}
 
 # create Security Group for postgres RDS, 5432
 resource "aws_security_group" "allow_postgress" {
