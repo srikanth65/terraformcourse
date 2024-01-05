@@ -20,7 +20,7 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "timing"
+    Name = var.project_name
     Terraform = "true"
     Environment = "DEV"
   }
@@ -43,7 +43,7 @@ resource "aws_subnet" "public_subnet" {
   cidr_block = "10.0.1.0/24"
 
   tags = {
-    Name = "timing_public_subnet"
+    Name = "${var.project_name}_public_subnet"
     Terraform = "true"
     Environment = "DEV"
   }
@@ -59,7 +59,7 @@ resource "aws_route_table" "public_route_table" {
   }
 
   tags = {
-    Name = "timing_public_rt"
+    Name = "${var.project_name}_public_rt"
     Terraform = "true"
     Environment = "DEV"
   }
@@ -78,7 +78,7 @@ resource "aws_subnet" "private_subnet" {
   cidr_block = "10.0.11.0/24"
 
   tags = {
-    Name = "timing-private_subnet"
+    Name = "${var.project_name}-private_subnet"
     Terraform = "true"
     Environment = "DEV"
   }
@@ -90,7 +90,7 @@ resource "aws_route_table" "private_route_table" {
 
 
   tags = {
-    Name = "timing_private_rt"
+    Name = "${var.project_name}_private_rt"
     Terraform = "true"
     Environment = "DEV"
   }
@@ -108,7 +108,7 @@ resource "aws_subnet" "database_subnet" {
   cidr_block = "10.0.21.0/24"
 
   tags = {
-    Name = "timing_database_subnet"
+    Name = "${var.project_name}_database_subnet"
     Terraform = "true"
     Environment = "DEV"
   }
@@ -120,7 +120,7 @@ resource "aws_route_table" "database_route_table" {
 
 
   tags = {
-    Name = "timing_database_rt"
+    Name = "${var.project_name}_database_rt"
     Terraform = "true"
     Environment = "DEV"
   }
